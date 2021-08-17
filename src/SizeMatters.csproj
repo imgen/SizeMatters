@@ -10,7 +10,13 @@
       <None Remove="Spectre.Console.Extensions.Table" />
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="27.1.1" />
       <PackageReference Include="Spectre.Console" Version="0.41.0" />
       <PackageReference Include="Spectre.Console.Extensions.Table" Version="0.3.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="settings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>
