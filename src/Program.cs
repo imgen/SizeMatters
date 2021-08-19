@@ -7,14 +7,15 @@ using System.Text.Json;
 using CsvHelper;
 using SizeMatters;
 
-const string SettingsFilePath = "settings.json";
-if (File.Exists(SettingsFilePath) is false)
+const string settingsFilePath = "settings.json";
+if (File.Exists(settingsFilePath) is false)
 {
-    await Console.Error.WriteLineAsync($"The setting file {SettingsFilePath}");
+    await Console.Error.WriteLineAsync($"The setting file {settingsFilePath}");
     return;
 }
-var json = await File.ReadAllTextAsync(SettingsFilePath);
+var json = await File.ReadAllTextAsync(settingsFilePath);
 var settings = JsonSerializer.Deserialize<Settings>(json);
+// ReSharper disable once PossibleNullReferenceException
 var tableSizesCsvPath = settings.TableSizesCsvPath;
 var tableSizesFromCsv = new List<TableSize>();
 if (string.IsNullOrEmpty(tableSizesCsvPath) is not true)
