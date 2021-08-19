@@ -1,4 +1,4 @@
 ﻿{
-  "TableSizesCsv": "tablesizes.csv",
+  "TableSizesCsvPath": "tablesizes.csv",
   "DatabaseConnection": "Data Source=(local);Initial Catalog=Gravity;Integrated Security=True"
 }

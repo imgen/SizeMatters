@@ -8,11 +8,17 @@
     <ItemGroup>
       <None Remove="Spectre.Console" />
       <None Remove="Spectre.Console.Extensions.Table" />
+      <None Update="tableSizes.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="CsvHelper" Version="27.1.1" />
+      <PackageReference Include="Dapper" Version="2.0.90" />
       <PackageReference Include="Spectre.Console" Version="0.41.0" />
       <PackageReference Include="Spectre.Console.Extensions.Table" Version="0.3.0" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+      <PackageReference Include="System.Linq.Async" Version="5.0.0" />
     </ItemGroup>
     <ItemGroup>
       <None Update="settings.json">
