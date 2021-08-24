@@ -23,7 +23,7 @@ if (string.IsNullOrEmpty(tableSizesCsvPath) is not true)
     using var reader = new StreamReader(tableSizesCsvPath);
     using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-    var tableSizes = await csv.GetRecordsAsync<TableSize>().ToListAsync();
+    tableSizesFromCsv = await csv.GetRecordsAsync<TableSize>().ToListAsync();
 }
 
 var tableSizesQueryResults = await TableSizeQueryer.GetTableSizesAsync(
@@ -42,5 +42,5 @@ if (tableSizesQueryResults.Any() is false)
     return;
 }
 
-TableSizeResultsDisplay.Render(tableSizesQueryResults);
+TableSizeResultsDisplay.Render(tableSizesQueryResults, settings.SizeCategorizations);
     

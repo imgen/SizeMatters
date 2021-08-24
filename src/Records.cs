@@ -1,6 +1,10 @@
-﻿namespace SizeMatters
-{
-    public record Settings(string TableSizesCsvPath, string DatabaseConnection);
+﻿using System.Collections.Generic;
 
-    public record TableSize(string TableName, int Size);
+namespace SizeMatters
+{
+    public record Settings(string TableSizesCsvPath, 
+        string DatabaseConnection,
+        Dictionary<long, string> SizeCategorizations);
+
+    public record TableSize(string TableName, long Size);
 }
