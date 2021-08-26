@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Spectre.Console;
+using System.Numerics;
 
 namespace SizeMatters
 {
@@ -43,15 +44,32 @@ namespace SizeMatters
                 );
             }
 
-            table.AddRow("", "", "", "", "");
+            if (tableSizes.Count > 1)
+            {
+                table.AddRow("", "", "", "", "");
 
-            var totalSize = tableSizes.Sum(x => x.Size);
-            table.AddRow("Total Size",
-                totalSize.ToString(),
-                $"{totalSize:n0}",
-                Nicer.Nice(totalSize, 3),
-                GetSizeCategory(totalSize)
-            );
+                var totalSize = tableSizes.Sum(x => x.Size);
+                table.AddRow("Total Size",
+                    totalSize.ToString(),
+                    $"{totalSize:n0}",
+                    Nicer.Nice(totalSize, 3),
+                    GetSizeCategory(totalSize)
+                );
+                
+                var product = new BigInteger(tableSizes[0].Size);
+                for (int i = 1; i < tableSizes.Count; i++)
+                {
+                    product *= tableSizes[i].Size;
+                }
+                
+                table.AddRow("", "", "", "", "");
+                table.AddRow("Total Product",
+                    product.ToString(),
+                    $"{product:n0}",
+                    "N/A",
+                    "N/A"
+                );
+            }
 
             table.Expand().Centered();
             AnsiConsole.Render(table);

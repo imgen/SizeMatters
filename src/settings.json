@@ -1,5 +1,5 @@
 ﻿{
   "TableSizesCsvPath": "tablesizes.csv",
   "TableSizesApiUrl": "http://localhost:3000/api/table-sizes",
-  "DatabaseConnection": "Data Source=(local);Initial Catalog=Gravity;Integrated Security=True"
+  "DatabaseConnection": "Data Source=(local);Initial Catalog=AdventureWorks;Integrated Security=True"
 }
