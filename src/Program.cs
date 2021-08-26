@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using CsvHelper;
 using SizeMatters;
@@ -26,10 +28,19 @@ if (string.IsNullOrEmpty(tableSizesCsvPath) is not true)
     tableSizesFromCsv = await csv.GetRecordsAsync<TableSize>().ToListAsync();
 }
 
+var apiUrl = settings.TableSizesApiUrl;
+var tableSizesFromApi = new List<TableSize>();
+if (!string.IsNullOrEmpty(apiUrl) && tableSizesFromCsv.Count == 0)
+{
+    using var httpClient = new HttpClient();
+    tableSizesFromApi = await httpClient.GetFromJsonAsync<List<TableSize>>(settings.TableSizesApiUrl);
+}
+
 var tableSizesQueryResults = await TableSizeQueryer.GetTableSizesAsync(
     tableNames: args,
     settings.DatabaseConnection,
-    tableSizesFromCsv
+    tableSizesFromCsv.Count == 0?
+        tableSizesFromApi : tableSizesFromCsv
 );
 if (tableSizesQueryResults is null)
 {

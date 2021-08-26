@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,20 +11,20 @@ namespace SizeMatters
     {
         public static async Task<List<TableSize>> GetTableSizesAsync(string[] tableNames,
             string connectionString,
-            List<TableSize> tableSizesFromCsv)
+            List<TableSize> fallbackTableSizes)
         {
-            var csvDataSourceProvided = tableSizesFromCsv.Any();
+            var fallbackProvided = fallbackTableSizes.Any();
             var dbProvided = string.IsNullOrWhiteSpace(connectionString) is not true;
-            var tableSizes = (csvDataSourceProvided, dbProvided) switch
+            var tableSizes = (fallbackProvided, dbProvided) switch
             {
-                (false, false) => throw new ArgumentException($"Either CSV data or a connection string should be provided"),
-                (true, false) => tableSizesFromCsv,
-                _  => await GetTableSizesFromDb(connectionString)
+                (false, false) => throw new ArgumentException($"Either CSV file path or an api url or a connection string should be provided"),
+                (true, false) => fallbackTableSizes,
+                _  => await GetTableSizesFromDb()
             };
 
-            if (tableSizes.Any() is false)
+            if (tableSizes == null || tableSizes.Any() is false)
             {
-                tableSizes = tableSizesFromCsv;
+                tableSizes = fallbackTableSizes;
             }
 
             if (tableSizes.Any() is false)
@@ -45,6 +44,24 @@ namespace SizeMatters
                                     x.TableName.Contains(tableName, StringComparison.InvariantCultureIgnoreCase)
                                 )
                 ).ToList();
+            
+            async Task<List<TableSize>> GetTableSizesFromDb()
+            {
+                try
+                {
+                    var connection = new SqlConnection(connectionString);
+                    return (await connection.QueryAsync<TableSize>(TableSizeQuery))
+                        .ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Cannot connect to the provided database or the user doesn't have sufficient privileges. Error: {e}");
+                    Console.WriteLine(fallbackProvided
+                        ? "Fallback to CSV file or API response"
+                        : "Cannot get any table size data");
+                    return null;
+                }
+            }
         }
 
         private const string TableSizeQuery = @"
@@ -64,10 +81,5 @@ GROUP BY
       , sysobj.name
 ORDER BY [Size] DESC;
 ";
-        private static async Task<List<TableSize>> GetTableSizesFromDb(string connectionString)
-        {
-            IDbConnection connection = new SqlConnection(connectionString);
-            return (await connection.QueryAsync<TableSize>(TableSizeQuery)).ToList();
-        }
     }
 }

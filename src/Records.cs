@@ -3,6 +3,7 @@
 namespace SizeMatters
 {
     public record Settings(string TableSizesCsvPath, 
+        string TableSizesApiUrl,
         string DatabaseConnection,
         Dictionary<long, string> SizeCategorizations);
 

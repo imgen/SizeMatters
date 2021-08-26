@@ -1,3 +1,5 @@
 TableName,Size
 PurchaseOrder, 10000
 PurchaseOrderItem, 1000000
+Booking, 100000000
+BookingItem, 1000000000000
