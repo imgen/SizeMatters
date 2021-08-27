@@ -9,6 +9,10 @@ namespace SizeMatters
 
         public static string Nice(this double x, int significantDigits)
         {
+            if (x < 1000)
+            {
+                return x.ToString(CultureInfo.InvariantCulture);
+            }
             //Check for special numbers and non-numbers
             if(double.IsInfinity(x)||double.IsNaN(x)||x==0||significantDigits<=0)
             {

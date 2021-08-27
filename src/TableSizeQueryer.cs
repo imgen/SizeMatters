@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using static System.Console;
 
 namespace SizeMatters
 {
@@ -24,6 +25,7 @@ namespace SizeMatters
 
             if (tableSizes == null || tableSizes.Any() is false)
             {
+                WriteLine("Fallback to CSV file or API response");
                 tableSizes = fallbackTableSizes;
             }
 
@@ -49,16 +51,13 @@ namespace SizeMatters
             {
                 try
                 {
-                    var connection = new SqlConnection(connectionString);
+                    await using var connection = new SqlConnection(connectionString);
                     return (await connection.QueryAsync<TableSize>(TableSizeQuery))
                         .ToList();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Cannot connect to the provided database or the user doesn't have sufficient privileges. Error: {e}");
-                    Console.WriteLine(fallbackProvided
-                        ? "Fallback to CSV file or API response"
-                        : "Cannot get any table size data");
+                    await Error.WriteLineAsync($"Cannot connect to the provided database or the user doesn't have sufficient privileges. Error: {e}");
                     return null;
                 }
             }
