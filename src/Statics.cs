@@ -51,5 +51,33 @@ namespace SizeMatters
             return str?.Replace("[", "[[")
                 ?.Replace("]", "]]");
         }
+
+        /// <summary>
+        /// Gets the median value from an array
+        /// </summary>
+        /// <typeparam name="T">The array type</typeparam>
+        /// <param name="sourceArray">The source array</param>
+        /// <param name="cloneArray">If it doesn't matter if the source array is sorted, you can pass false to improve performance</param>
+        /// <returns></returns>
+        public static T GetMedian<T>(this T[] sourceArray, bool cloneArray = true) where T : IComparable<T>
+        {
+            //Framework 2.0 version of this method. there is an easier way in F4        
+            if (sourceArray == null || sourceArray.Length == 0)
+                throw new ArgumentException("Median of empty array not defined.");
+
+            //make sure the list is sorted, but use a new array
+            T[] sortedArray = cloneArray ? (T[])sourceArray.Clone() : sourceArray;
+            Array.Sort(sortedArray);
+
+            //get the median
+            int size = sortedArray.Length;
+            int mid = size / 2;
+            if (size % 2 != 0)
+                return sortedArray[mid];
+
+            dynamic value1 = sortedArray[mid];
+            dynamic value2 = sortedArray[mid - 1];
+            return (value1 + value2) * 0.5;
+        }
     }
 }

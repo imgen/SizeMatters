@@ -60,14 +60,27 @@ GROUP BY @columnName";
                 }
                 if (results.Count == 0)
                 {
-                    yield return new ColumnSize(
-                        tableName, columnName, 0, 0);
+                    await Error.WriteLineAsync($"The column {columnExpression} is empty");
+                    continue;
                 }
 
                 var size = results.Count;
                 var nullSize = results.FirstOrDefault(x => x.Value is null)
                     ?.ValueCount?? 0;
-                yield return new ColumnSize(tableName, columnName, size, nullSize);
+                var nonNullValueSizes = results.Where(x => x.Value is not null)
+                    .Select(x => x.ValueCount)
+                    .ToArray();
+                var stats = new ColumnStats(
+                        nonNullValueSizes.Max(),
+                        nonNullValueSizes.Min(),
+                        (long)nonNullValueSizes.Average(),
+                        nonNullValueSizes.GetMedian(cloneArray: false)
+                    );
+                yield return new ColumnSize(tableName, 
+                    columnName, 
+                    size, 
+                    nullSize, 
+                    stats);
             }
         }
     }

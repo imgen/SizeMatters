@@ -24,8 +24,9 @@ namespace SizeMatters
             table.AddColumn("Null Size");
             table.AddColumn("Formatted Null Size");
             table.AddColumn("Readable Null Size");
+            table.AddColumn("Stats");
 
-            foreach (var (tableName, columnName, size, nullSize) in columnSizes)
+            foreach (var (tableName, columnName, size, nullSize, stats) in columnSizes)
             {
                 table.AddRow(
                     tableName.EscapeBrackets(),
@@ -36,7 +37,8 @@ namespace SizeMatters
                     GetSizeCategory(size, sizeCategorizations),
                     nullSize.ToString(),
                     $"{nullSize:n0}",
-                    Nicer.Nice(nullSize, 3)
+                    Nicer.Nice(nullSize, 3),
+                    stats.ToString()
                 );
             }
 

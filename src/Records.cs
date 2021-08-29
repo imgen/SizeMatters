@@ -12,7 +12,20 @@ namespace SizeMatters
     public record ColumnSize(string TableName, 
         string ColumnName, 
         long Size, 
-        long NullSize);
+        long NullSize,
+        ColumnStats Stats);
+
+    public record ColumnStats(
+        long Max, long Min, long Mean, long Median)
+    {
+        public override string ToString()
+        {
+            return $@"Max: {Max}
+Min: {Min},
+Mean: {Mean},
+Median: {Median}";
+        }
+    }
 
     public record ColumnSizeQueryResult(object Value, long ValueCount)
     {
