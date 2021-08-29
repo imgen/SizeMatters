@@ -24,21 +24,19 @@ namespace SizeMatters
             table.AddColumn("Null Size");
             table.AddColumn("Formatted Null Size");
             table.AddColumn("Readable Null Size");
-            table.AddColumn(new TableColumn("Null Size Category").Centered());
 
             foreach (var (tableName, columnName, size, nullSize) in columnSizes)
             {
                 table.AddRow(
-                    tableName,
-                    columnName,
+                    tableName.EscapeBrackets(),
+                    columnName.EscapeBrackets(),
                     size.ToString(),
                     $"{size:n0}",
                     Nicer.Nice(size, 3),
                     GetSizeCategory(size, sizeCategorizations),
                     nullSize.ToString(),
                     $"{nullSize:n0}",
-                    Nicer.Nice(nullSize, 3),
-                    GetSizeCategory(nullSize, sizeCategorizations)
+                    Nicer.Nice(nullSize, 3)
                 );
             }
 
@@ -58,6 +56,11 @@ namespace SizeMatters
                 var product = new BigInteger(columnSizes[0].Size);
                 for (int i = 1; i < columnSizes.Count; i++)
                 {
+                    var columnSize = columnSizes[i].Size;
+                    if (columnSize == 0)
+                    {
+                        continue;
+                    }
                     product *= columnSizes[i].Size;
                 }
                 

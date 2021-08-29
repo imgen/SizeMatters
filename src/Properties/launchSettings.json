@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SizeMatters": {
+      "commandName": "Project",
+      "commandLineArgs": "VendorBooking.FactoryId"
+    }
+  }
+}

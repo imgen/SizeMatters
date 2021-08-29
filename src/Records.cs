@@ -14,5 +14,9 @@ namespace SizeMatters
         long Size, 
         long NullSize);
 
-    public record ColumnSizeQueryResult(object Value, long ValueCount);
+    public record ColumnSizeQueryResult(object Value, long ValueCount)
+    {
+        public ColumnSizeQueryResult(): this(default, default) { }
+    }
+
 }

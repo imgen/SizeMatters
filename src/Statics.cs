@@ -22,6 +22,10 @@ namespace SizeMatters
         public static string GetSizeCategory(long size,
             Dictionary<long, string> sizeCategorizations)
         {
+            if (size <= 0)
+            {
+                return "Empty";
+            }
             var orderedSizes = sizeCategorizations
                 .Keys.OrderBy(x => x).ToArray();
             int i = 0;
@@ -40,6 +44,12 @@ namespace SizeMatters
         public static void AddEmptyRow(this Table table)
         {
             table.AddRow(Array.Empty<string>());
+        }
+
+        public static string EscapeBrackets(this string str)
+        {
+            return str?.Replace("[", "[[")
+                ?.Replace("]", "]]");
         }
     }
 }

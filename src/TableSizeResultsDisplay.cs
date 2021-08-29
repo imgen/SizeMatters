@@ -23,7 +23,7 @@ namespace SizeMatters
 
             foreach (var (tableName, size) in tableSizes)
             {
-                table.AddRow(tableName,
+                table.AddRow(tableName.EscapeBrackets(),
                     size.ToString(),
                     $"{size:n0}",
                     Nicer.Nice(size, 3),
@@ -46,7 +46,12 @@ namespace SizeMatters
                 var product = new BigInteger(tableSizes[0].Size);
                 for (int i = 1; i < tableSizes.Count; i++)
                 {
-                    product *= tableSizes[i].Size;
+                    var tableSize = tableSizes[i].Size;
+                    if (tableSize == 0)
+                    {
+                        continue;
+                    }
+                    product *= tableSize;
                 }
 
                 table.AddEmptyRow();

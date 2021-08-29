@@ -11,7 +11,10 @@ namespace SizeMatters
     public static class ColumnSizeQueryer
     {
         private const string ColumnSizeSql = @"
-SELECT @columnName AS [Value], COUNT(*) AS [ValueCount] FROM @tableName
+SELECT
+    @columnName AS [Value],
+    COUNT(*) AS [ValueCount]
+FROM @tableName
 GROUP BY @columnName";
         
         public static async Task<List<ColumnSize>> GetColumnSizesAsync(
@@ -61,7 +64,7 @@ GROUP BY @columnName";
                         tableName, columnName, 0, 0);
                 }
 
-                var size = results.Sum(x => x.ValueCount);
+                var size = results.Count;
                 var nullSize = results.FirstOrDefault(x => x.Value is null)
                     ?.ValueCount?? 0;
                 yield return new ColumnSize(tableName, columnName, size, nullSize);

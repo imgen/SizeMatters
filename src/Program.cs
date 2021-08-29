@@ -57,6 +57,7 @@ if (executableName == executableOfColumnSizeMatters)
     Render(columnSizes, sizeCategorizations?? DefaultSizeCategorizations);
     return;
 }
+
 if (string.IsNullOrEmpty(csvPath) is not true)
 {
     using var reader = new StreamReader(csvPath);
