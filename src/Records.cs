@@ -21,8 +21,8 @@ namespace SizeMatters
         public override string ToString()
         {
             return $@"Max: {Max}
-Min: {Min},
-Mean: {Mean},
+Min: {Min}
+Mean: {Mean}
 Median: {Median}";
         }
     }

@@ -15,8 +15,8 @@ namespace SizeMatters
             
             var table = new Table();
             table.Border(TableBorder.Rounded);
-            table.AddColumn(new TableColumn("TableName").Centered());
-            table.AddColumn(new TableColumn("ColumnName").Centered());
+            table.AddColumn(new TableColumn("Table Name").Centered());
+            table.AddColumn(new TableColumn("Column Name").Centered());
             table.AddColumn("Size");
             table.AddColumn("Formatted Size");
             table.AddColumn("Readable Size");
@@ -79,7 +79,5 @@ namespace SizeMatters
             table.Expand().Centered();
             AnsiConsole.Render(table);
         }
-
-        
     }
 }
