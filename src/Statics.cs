@@ -48,8 +48,7 @@ namespace SizeMatters
 
         public static string EscapeBrackets(this string str)
         {
-            return str?.Replace("[", "[[")
-                ?.Replace("]", "]]");
+            return str?.Replace("[", "[[").Replace("]", "]]");
         }
 
         /// <summary>

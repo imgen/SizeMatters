@@ -30,6 +30,7 @@ var json = await File.ReadAllTextAsync(settingsFilePath);
 // ReSharper disable once PossibleNullReferenceException
 var (csvPath, apiUrl, connectionString, sizeCategorizations) = 
     JsonSerializer.Deserialize<Settings>(json);
+sizeCategorizations ??= DefaultSizeCategorizations;
 var tableSizesFromCsv = new List<TableSize>();
 if (executableName == executableOfColumnSizeMatters)
 {
@@ -54,7 +55,7 @@ if (executableName == executableOfColumnSizeMatters)
         return;
     }
     
-    Render(columnSizes, sizeCategorizations?? DefaultSizeCategorizations);
+    Render(columnSizes, sizeCategorizations);
     return;
 }
 
@@ -90,5 +91,5 @@ if (tableSizesQueryResults.Any() is false)
     return;
 }
 
-Render(tableSizesQueryResults, sizeCategorizations?? DefaultSizeCategorizations);
+Render(tableSizesQueryResults, sizeCategorizations);
     
