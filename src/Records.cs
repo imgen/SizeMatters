@@ -7,16 +7,9 @@ namespace SizeMatters
         string DatabaseConnectionString,
         string ColumnSizeDetailsJsonExportToDir,
         Dictionary<long, string> SizeCategorizations);
-
+    
     public record TableSize(string TableName, long Size);
-
-    public record ColumnSize(string TableName, 
-        string ColumnName, 
-        long Size, 
-        long NullSize,
-        ColumnStats Stats,
-        List<ColumnSizeQueryResult> Details);
-
+    
     public record ColumnStats(
         long Max, long Min, long Mean, long Median)
     {
@@ -35,4 +28,11 @@ Median: {Median}";
         // ReSharper disable once UnusedMember.Global
         public ColumnSizeQueryResult(): this(default, default) { }
     }
+
+    public record ColumnSize(string TableName, 
+        string ColumnName, 
+        long Size, 
+        long NullSize,
+        ColumnStats Stats,
+        List<ColumnSizeQueryResult> Details);
 }
