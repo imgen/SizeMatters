@@ -8,7 +8,7 @@ using static System.Console;
 
 namespace SizeMatters
 {
-    public class TableSizeQueryer
+    public static class TableSizeQueryer
     {
         private const string TableSizeQuery = @"
 SELECT

@@ -69,8 +69,8 @@ namespace SizeMatters
             Array.Sort(sortedArray);
 
             //get the median
-            int size = sortedArray.Length;
-            int mid = size / 2;
+            var size = sortedArray.Length;
+            var mid = size / 2;
             if (size % 2 != 0)
                 return sortedArray[mid];
 

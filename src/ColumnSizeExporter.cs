@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SizeMatters
 {
-    public class ColumnSizeExporter
+    public static class ColumnSizeExporter
     {
         public static async Task ExportToJsonAsync(List<ColumnSize> columnSizes, string dir)
         {
