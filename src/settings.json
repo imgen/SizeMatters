@@ -1,5 +1,6 @@
 ﻿{
   "TableSizesCsvPath": "tablesizes.csv",
   "TableSizesApiUrl": "http://localhost:3000/api/table-sizes",
-  "DatabaseConnectionString": "Data Source=(local);Initial Catalog=AdventureWorks;Integrated Security=True"
+  "DatabaseConnectionString": "Data Source=(local);Initial Catalog=AdventureWorks;Integrated Security=True",
+  "ColumnSizeDetailsJsonExportToDir": "."
 }

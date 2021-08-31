@@ -22,13 +22,13 @@ namespace SizeMatters
             var sign=Math.Sign(x);
             x=Math.Abs(x);
             // get scientific exponent, 10^3, 10^6, ...
-            int sci= x==0? 0 : (int)Math.Floor(Math.Log(x, 10)/3)*3;
+            var sci= x==0? 0 : (int)Math.Floor(Math.Log(x, 10)/3)*3;
             // scale number to exponent found
             x=x*Math.Pow(10, -sci);
             // find number of digits to the left of the decimal
-            int dg= x==0? 0 : (int)Math.Floor(Math.Log(x, 10))+1;
+            var dg= x==0? 0 : (int)Math.Floor(Math.Log(x, 10))+1;
             // adjust decimals to display
-            int decimals=Math.Min(significantDigits-dg, 15);
+            var decimals = Math.Min(significantDigits-dg, 15);
             // format for the decimals
             var fmt=new string('0', decimals);
             if(sci==0)
@@ -39,7 +39,7 @@ namespace SizeMatters
                     Math.Round(x, decimals));
             }
             // find index for prefix. every 3 of sci is a new index
-            int index=sci/3+6;
+            var index=sci/3+6;
             if(index>=0&&index<Prefixes.Length)
             {
                 // with prefix

@@ -80,7 +80,8 @@ GROUP BY @columnName";
                     columnName, 
                     size, 
                     nullSize, 
-                    stats);
+                    stats,
+                    results);
             }
         }
     }

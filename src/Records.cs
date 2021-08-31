@@ -5,6 +5,7 @@ namespace SizeMatters
     public record Settings(string TableSizesCsvPath, 
         string TableSizesApiUrl,
         string DatabaseConnectionString,
+        string ColumnSizeDetailsJsonExportToDir,
         Dictionary<long, string> SizeCategorizations);
 
     public record TableSize(string TableName, long Size);
@@ -13,7 +14,8 @@ namespace SizeMatters
         string ColumnName, 
         long Size, 
         long NullSize,
-        ColumnStats Stats);
+        ColumnStats Stats,
+        List<ColumnSizeQueryResult> Details);
 
     public record ColumnStats(
         long Max, long Min, long Mean, long Median)
@@ -29,7 +31,8 @@ Median: {Median}";
 
     public record ColumnSizeQueryResult(object Value, long ValueCount)
     {
+        // This constructor is for json deserialization to work
+        // ReSharper disable once UnusedMember.Global
         public ColumnSizeQueryResult(): this(default, default) { }
     }
-
 }
