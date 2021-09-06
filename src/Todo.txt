@@ -1,1 +1,3 @@
 ﻿1. add an option to export column data details
+2. add ASCII art
+3. render some nice images?
