@@ -44,6 +44,7 @@ else
 
 async Task RetrieveTableSizesAsync()
 {
+    "Table Size Matters".RenderAsAsciiArt();
     var tableSizesFromCsv = new List<TableSize>();
     if (string.IsNullOrEmpty(csvPath) is not true)
     {
@@ -82,6 +83,7 @@ async Task RetrieveTableSizesAsync()
 
 async Task RetrieveColumnSizesAsync()
 {
+    "Column Size Matters".RenderAsAsciiArt();
     if (args.Length == 0)
     {
         Error.WriteLine("Please provide at least one column names prefixed by table name, such as PurchaseOrder.OrderNumber. Schema is supported");

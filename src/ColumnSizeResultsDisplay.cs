@@ -13,7 +13,10 @@ namespace SizeMatters
         {
             columnSizes = columnSizes.OrderByDescending(x => x.Size).ToList();
             
-            var table = new Table();
+            var table = new Table
+            {
+                Title = new TableTitle("Column sizes")
+            };
             table.Border(TableBorder.Rounded);
             table.AddColumn(new TableColumn("Table Name").Centered());
             table.AddColumn(new TableColumn("Column Name").Centered());

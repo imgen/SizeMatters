@@ -12,8 +12,11 @@ namespace SizeMatters
             Dictionary<long, string> sizeCategorizations)
         {
             tableSizes = tableSizes.OrderByDescending(x => x.Size).ToList();
-            
-            var table = new Table();
+
+            var table = new Table
+            {
+                Title = new TableTitle("Table sizes")
+            };
             table.Border(TableBorder.Rounded);
             table.AddColumn(new TableColumn("Name").Centered());
             table.AddColumn("Size");
