@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Threading.Tasks;
 using CsvHelper;
 using SizeMatters;
-using Spectre.Console;
 using static SizeMatters.Statics;
 using static SizeMatters.TableSizeQueryer;
 using static SizeMatters.TableSizeResultsDisplay;
