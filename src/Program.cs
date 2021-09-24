@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using CsvHelper;
 using SizeMatters;
 using Spectre.Console;
-using static System.Console;
 using static SizeMatters.Statics;
 using static SizeMatters.TableSizeQueryer;
 using static SizeMatters.TableSizeResultsDisplay;
@@ -23,7 +22,7 @@ const string settingsFilePath = "settings.json";
 
 if (File.Exists(settingsFilePath) is false)
 {
-    await Error.WriteLineAsync($"The setting file {settingsFilePath}");
+    $"The setting file {settingsFilePath} doesn't exist".RenderAsYellowBoldText();
     return;
 }
 var json = await File.ReadAllTextAsync(settingsFilePath);
@@ -77,12 +76,12 @@ async Task RetrieveTableSizesAsync()
     );
     if (tableSizesQueryResults is null)
     {
-        Error.WriteLine("Cannot retrieve table size data");
+        "Cannot retrieve table size data".RenderAsYellowBoldText();
         return;
     }
     if (tableSizesQueryResults.Any() is false)
     {
-        WriteLine("No table match the provided table names");
+        "No table match the provided table names".RenderAsYellowBoldText();
         return;
     }
 
@@ -94,12 +93,13 @@ async Task RetrieveColumnSizesAsync()
     "Column Size Matters".RenderAsAsciiArt();
     if (args.Length == 0)
     {
-        Error.WriteLine("Please provide at least one column names prefixed by table name, such as PurchaseOrder.OrderNumber. Schema is supported");
+        "Please provide at least one column names prefixed by table name, such as PurchaseOrder.OrderNumber. Schema is supported"
+            .RenderAsYellowBoldText();
         return;
     }
     if (string.IsNullOrEmpty(connectionString))
     {
-        Error.WriteLine("Please provide database connection string");
+        "Please provide database connection string".RenderAsYellowBoldText();
         return;
     }
 
@@ -109,7 +109,7 @@ async Task RetrieveColumnSizesAsync()
     );
     if (columnSizes?.Any() is not true)
     {
-        Error.WriteLine("Couldn't retrieve column size information");
+        "Couldn't retrieve column size information".RenderAsYellowBoldText();
         return;
     }
     
@@ -119,16 +119,14 @@ async Task RetrieveColumnSizesAsync()
     {
         if (Directory.Exists(columnSizeDetailsJsonExportToDir) is not true)
         {
-            await Console.Error.WriteLineAsync($"The provided dir {columnSizeDetailsJsonExportToDir} doesn't exist. Creating it now");
+            $"The provided dir {columnSizeDetailsJsonExportToDir} doesn't exist. Creating it now".RenderAsYellowBoldText();
             try
             {
                 Directory.CreateDirectory(columnSizeDetailsJsonExportToDir);
             }
             catch (Exception e)
             {
-                await Console.Error.WriteLineAsync(
-                    $"Cannot create directory {columnSizeDetailsJsonExportToDir} due to error: {e}. Exiting now"
-                );
+                $"Cannot create directory {columnSizeDetailsJsonExportToDir} due to error: {e}. Exiting now".RenderAsYellowBoldText();
                 return;
             }
         }

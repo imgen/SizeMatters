@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using static System.Console;
 
 namespace SizeMatters
 {
@@ -40,7 +39,7 @@ GROUP BY @columnName";
                 var partsCount = parts.Length;
                 if (partsCount is 1 or > 3)
                 {
-                    await Error.WriteLineAsync($"The provided column expression {columnExpression} is invalid");
+                    $"The provided column expression {columnExpression} is invalid".RenderAsYellowBoldText();
                     continue;
                 }
 
@@ -55,12 +54,12 @@ GROUP BY @columnName";
                 }
                 catch (Exception e)
                 {
-                    await Error.WriteLineAsync($"Cannot retrieve column size data for {columnExpression} due to {e}");
+                    $"Cannot retrieve column size data for {columnExpression} due to {e}".RenderAsYellowBoldText();
                     continue;
                 }
                 if (results.Count == 0)
                 {
-                    await Error.WriteLineAsync($"The column {columnExpression} is empty");
+                    $"The column {columnExpression} is empty".RenderAsYellowBoldText();
                     continue;
                 }
 
