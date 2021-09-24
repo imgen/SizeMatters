@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using static System.Console;
 
 namespace SizeMatters
 {
@@ -75,7 +74,8 @@ ORDER BY [Size] DESC;
                 }
                 catch (Exception e)
                 {
-                    await Error.WriteLineAsync($"Cannot connect to the provided database or the user doesn't have sufficient privileges. Error: {e}");
+                    $"Cannot connect to the provided database or the user doesn't have sufficient privileges. Error: {e}"
+                        .RenderAsYellowBoldText();
                     return null;
                 }
             }
