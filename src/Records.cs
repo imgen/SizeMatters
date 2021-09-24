@@ -1,7 +1,5 @@
 ﻿namespace SizeMatters;
 
-using System.Collections.Generic;
-
 public record Settings(string TableSizesCsvPath, 
     string TableSizesApiUrl,
     string DatabaseConnectionString,
