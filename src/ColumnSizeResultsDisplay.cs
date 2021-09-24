@@ -32,8 +32,8 @@ namespace SizeMatters
             foreach (var (tableName, columnName, size, nullSize, stats, _) in columnSizes)
             {
                 table.AddRow(
-                    tableName.EscapeBrackets(),
-                    columnName.EscapeBrackets(),
+                    tableName.EscapeBrackets()!,
+                    columnName.EscapeBrackets()!,
                     size.ToString(),
                     $"{size:n0}",
                     Nicer.Nice(size, 3),

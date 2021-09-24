@@ -23,7 +23,7 @@ Median: {Median}";
         }
     }
 
-    public record ColumnSizeQueryResult(object Value, long ValueCount)
+    public record ColumnSizeQueryResult(object? Value, long ValueCount)
     {
         // This constructor is for json deserialization to work
         // ReSharper disable once UnusedMember.Global

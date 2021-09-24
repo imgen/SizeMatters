@@ -28,11 +28,11 @@ GROUP BY
 ORDER BY [Size] DESC;
 ";
         
-        public static async Task<List<TableSize>> GetTableSizesAsync(string[] tableNames,
+        public static async Task<List<TableSize>?> GetTableSizesAsync(string[] tableNames,
             string connectionString,
-            List<TableSize> fallbackTableSizes)
+            List<TableSize>? fallbackTableSizes)
         {
-            var fallbackProvided = fallbackTableSizes.Any();
+            var fallbackProvided = fallbackTableSizes is not null && fallbackTableSizes.Any();
             var dbProvided = string.IsNullOrWhiteSpace(connectionString) is not true;
             var tableSizes = (fallbackProvided, dbProvided) switch
             {
@@ -43,11 +43,11 @@ ORDER BY [Size] DESC;
 
             if (tableSizes == null || tableSizes.Any() is false)
             {
-                WriteLine("Fallback to CSV file or API response");
+                "Fallback to CSV file or API response".RenderAsYellowBoldText();
                 tableSizes = fallbackTableSizes;
             }
 
-            if (tableSizes.Any() is false)
+            if (tableSizes?.Any() is false)
             {
                 return null;
             }
@@ -57,7 +57,7 @@ ORDER BY [Size] DESC;
                 return tableSizes;
             }
 
-            return tableSizes
+            return tableSizes!
                 .Where(x => tableNames.Any() is false ||
                             tableNames.Any(
                                 tableName =>
@@ -65,7 +65,7 @@ ORDER BY [Size] DESC;
                                 )
                 ).ToList();
             
-            async Task<List<TableSize>> GetTableSizesFromDb()
+            async Task<List<TableSize>?> GetTableSizesFromDb()
             {
                 try
                 {

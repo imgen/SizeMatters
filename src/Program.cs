@@ -28,7 +28,7 @@ if (File.Exists(settingsFilePath) is false)
 var json = await File.ReadAllTextAsync(settingsFilePath);
 // ReSharper disable once PossibleNullReferenceException
 var (csvPath, apiUrl, connectionString, columnSizeDetailsJsonExportToDir, sizeCategorizations) = 
-    JsonSerializer.Deserialize<Settings>(json);
+    JsonSerializer.Deserialize<Settings>(json)!;
 sizeCategorizations ??= DefaultSizeCategorizations;
 
 var executablePath = Environment.GetCommandLineArgs()[0];

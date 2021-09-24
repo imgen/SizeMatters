@@ -26,7 +26,7 @@ namespace SizeMatters
 
             foreach (var (tableName, size) in tableSizes)
             {
-                table.AddRow(tableName.EscapeBrackets(),
+                table.AddRow(tableName.EscapeBrackets()!,
                     size.ToString(),
                     $"{size:n0}",
                     Nicer.Nice(size, 3),

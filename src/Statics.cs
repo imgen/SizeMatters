@@ -46,7 +46,7 @@ namespace SizeMatters
             table.AddRow(Array.Empty<string>());
         }
 
-        public static string EscapeBrackets(this string str)
+        public static string? EscapeBrackets(this string? str)
         {
             return str?.Replace("[", "[[").Replace("]", "]]");
         }
