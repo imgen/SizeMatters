@@ -15,14 +15,13 @@ namespace SizeMatters
 
         public static void RenderAsColoredText(this string text, Color color)
         {
-            AnsiConsole.Render(new Markup($"[{color.ToString().ToLowerInvariant()}]{text}[/]"));
+            AnsiConsole.MarkupLine($"[{color.ToString().ToLowerInvariant()}]{text}[/]");
             Console.WriteLine();
         }
 
         public static void RenderAsYellowBoldText(this string text)
         {
-            AnsiConsole.Render(new Markup($"[bold yellow]{text}[/]"));
-            Console.WriteLine();
+            AnsiConsole.MarkupLine($"[bold yellow]{text}[/]");
         }
     }
 }

@@ -93,7 +93,7 @@ async Task RetrieveColumnSizesAsync()
     "Column Size Matters".RenderAsAsciiArt();
     if (args.Length == 0)
     {
-        "Please provide at least one column names prefixed by table name, such as PurchaseOrder.OrderNumber. Schema is supported"
+        "Please provide at least one column names prefixed by table name, such as PurchaseOrder.OrderNumber. Schema such as dbo.PurchaseOrder.OrderNumber is supported"
             .RenderAsYellowBoldText();
         return;
     }
