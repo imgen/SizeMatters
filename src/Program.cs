@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CsvHelper;
 using SizeMatters;
+using Spectre.Console;
 using static System.Console;
 using static SizeMatters.Statics;
 using static SizeMatters.TableSizeQueryer;
@@ -33,13 +34,20 @@ sizeCategorizations ??= DefaultSizeCategorizations;
 
 var executablePath = Environment.GetCommandLineArgs()[0];
 var executableName = Path.GetFileNameWithoutExtension(executablePath);
-if (executableName == executableOfColumnSizeMatters)
+var task = executableName switch
 {
-    await RetrieveColumnSizesAsync();
+    executableOfColumnSizeMatters => RetrieveColumnSizesAsync(),
+    _ => RetrieveTableSizesAsync()
+};
+try
+{
+    await task;
 }
-else
+catch (Exception ex)
 {
-    await RetrieveTableSizesAsync();
+    AnsiConsole.WriteException(ex, 
+        ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes |
+        ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
 }
 
 async Task RetrieveTableSizesAsync()

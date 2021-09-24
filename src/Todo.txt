@@ -1,4 +1,5 @@
 ﻿1. add an option to export column data details - Done
 2. add ASCII art - Done
 3. render some nice images?
-4. add title to the table
+4. add title to the table - Done
+5. exception display - Done
