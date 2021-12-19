@@ -10,8 +10,8 @@ public static class TextRender
         );
 
     public static void RenderAsColoredText(this string text, Color color) =>
-        AnsiConsole.MarkupLine($"[{color.ToString().ToLowerInvariant()}]{text}[/]");
+        AnsiConsole.MarkupLine($"[{color.ToString().ToLowerInvariant()}]{text.EscapeMarkup()}[/]");
 
     public static void RenderAsYellowBoldText(this string text) =>
-        AnsiConsole.MarkupLine($"[bold yellow]{text}[/]");
+        AnsiConsole.MarkupLine($"[bold yellow]{text.EscapeMarkup()}[/]");
 }
