@@ -1,7 +1,7 @@
 namespace SizeMatters;
 
 using System.Numerics;
-using static SizeMatters.Statics;
+using static Statics;
 
 public static class ColumnSizeResultsDisplay
 {
@@ -56,7 +56,7 @@ public static class ColumnSizeResultsDisplay
             );
             
             var product = new BigInteger(columnSizes[0].Size);
-            for (int i = 1; i < columnSizes.Count; i++)
+            for (var i = 1; i < columnSizes.Count; i++)
             {
                 var columnSize = columnSizes[i].Size;
                 if (columnSize == 0)
@@ -77,6 +77,6 @@ public static class ColumnSizeResultsDisplay
         }
 
         table.Expand().Centered();
-        AnsiConsole.Render(table);
+        AnsiConsole.Write(table);
     }
 }

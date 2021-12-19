@@ -3,7 +3,7 @@ namespace SizeMatters;
 public static class TextRender
 {
     public static void RenderAsAsciiArt(this string asciiArt) =>
-        AnsiConsole.Render(
+        AnsiConsole.Write(
             new FigletText(asciiArt)
             .Centered()
             .Color(Color.Green)

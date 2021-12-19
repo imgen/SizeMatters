@@ -14,12 +14,12 @@ public static class TableSizeResultsDisplay
         {
             Title = new TableTitle("Table sizes")
         };
-        table.Border(TableBorder.Rounded);
-        table.AddColumn(new TableColumn("Name").Centered());
-        table.AddColumn("Size");
-        table.AddColumn("Formatted Size");
-        table.AddColumn("Readable Size");
-        table.AddColumn(new TableColumn("Size Category").Centered());
+        table.Border(TableBorder.Rounded)
+            .AddColumn(new TableColumn("Name").Centered())
+            .AddColumn("Size")
+            .AddColumn("Formatted Size")
+            .AddColumn("Readable Size")
+            .AddColumn(new TableColumn("Size Category").Centered());
 
         foreach (var (tableName, size) in tableSizes)
         {
@@ -44,7 +44,7 @@ public static class TableSizeResultsDisplay
             );
 
             var product = new BigInteger(tableSizes[0].Size);
-            for (int i = 1; i < tableSizes.Count; i++)
+            for (var i = 1; i < tableSizes.Count; i++)
             {
                 var tableSize = tableSizes[i].Size;
                 if (tableSize == 0)
@@ -64,6 +64,6 @@ public static class TableSizeResultsDisplay
         }
 
         table.Expand().Centered();
-        AnsiConsole.Render(table);
+        AnsiConsole.Write(table);
     }
 }
